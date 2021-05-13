@@ -11,8 +11,17 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
+    void "test constraints"() {
+        given:
+        def user = new User(loginId: "joe", password: "tiny")
+
+        when:
+        user.validate()
+
+        then:
+        user.hasErrors()
+        "size.toosmall" == user.errors.getFieldError("password").code
+        "tiny" == user.errors.getFieldError("password").rejectedValue
+        !user.errors.getFieldError("loginId")
     }
 }

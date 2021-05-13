@@ -16,7 +16,7 @@ class UserIntegrationSpec extends Specification {
 
     void "test first save ever"() {
         given:
-        def joe = new User(loginId: "joe", password: "secret", homepage: "http://www.grailsinaction.com")
+        def joe = new User(loginId: "joe", password: "secret")
 
         when:
         joe.save()
@@ -29,7 +29,7 @@ class UserIntegrationSpec extends Specification {
 
     void "test save and update"() {
         given: "создаем пользователя и сохраняем"
-        def existingUser = new User(loginId: "joe", password: "secret", homepage: "http://www.grailsinaction.com")
+        def existingUser = new User(loginId: "joe", password: "secret")
         existingUser.save(failOnError: true)
 
         when: "находим созданного пользователя и у найденного пользоваеля меняем пароль и сохраняем"
@@ -43,7 +43,7 @@ class UserIntegrationSpec extends Specification {
 
     void "test save then delete"() {
         given:
-        def user = new User(loginId: "joe", password: "secret", homepage: "http://www.grailsinaction.com")
+        def user = new User(loginId: "joe", password: "secret", )
         user.save()
 
         when:
@@ -56,7 +56,7 @@ class UserIntegrationSpec extends Specification {
 
     void "Saving a user with invalid properties causes an error"() {
         given:
-        def user = new User(loginId: "joe", password: "tiny", homepage: "not-a-url")
+        def user = new User(loginId: "joe", password: "tiny")
 
         when:
         user.validate()
@@ -65,20 +65,17 @@ class UserIntegrationSpec extends Specification {
         user.hasErrors()
         "size.toosmall" == user.errors.getFieldError("password").code
         "tiny" == user.errors.getFieldError("password").rejectedValue
-        "url.invalid" == user.errors.getFieldError("homepage").code
-        "not-a-url" == user.errors.getFieldError("homepage").rejectedValue
         !user.errors.getFieldError("loginId")
     }
 
     void "Recovering from a failed save by fixing invalid properties"() {
         given: "Пользователь с недопустимыми свойствами"
-        def chuck = new User(loginId: "chuck", password: "tiny", homepage: "not-a-url")
+        def chuck = new User(loginId: "chuck", password: "tiny")
         assert chuck.save() == null
         assert chuck.hasErrors()
 
         when: "Исправляем недопустимые свойства"
         chuck.password = "fistfist"
-        chuck.homepage = "http://www.chucknorrisfacts.com"
         chuck.validate()
 
         then: "Пользователь сохраняется без ошибок"
@@ -88,7 +85,7 @@ class UserIntegrationSpec extends Specification {
 
     void "Validating of user with same login and password"() {
         given:
-        def user = new User(loginId: "chucky", password: "chucky", homepage: "")
+        def user = new User(loginId: "chucky", password: "chucky")
 
         when:
         user.validate()
@@ -96,5 +93,21 @@ class UserIntegrationSpec extends Specification {
         then:
         user.hasErrors()
         "validator.invalid" == user.errors.getFieldError("password").code
+    }
+
+    void "User with Profile"() {
+        given:
+        def chuck = new User(loginId: "chuck", password: "fistfist")
+        assert chuck.save()
+        assert chuck.profile == null
+        def profile = new Profile(user: chuck, fullName: "Chuck Norris", email: "chucky@norris.com")
+
+        when:
+        profile.save(failOnError: true)
+
+        then:
+        !profile.hasErrors()
+        chuck.profile == profile
+        profile.user == chuck
     }
 }
