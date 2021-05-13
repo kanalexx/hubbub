@@ -1,4 +1,4 @@
-package hubbub
+package com.kanaa
 
 class UrlMappings {
 
