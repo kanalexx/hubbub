@@ -110,4 +110,38 @@ class UserIntegrationSpec extends Specification {
         chuck.profile == profile
         profile.user == chuck
     }
+
+    void "Cascade deleting a User"() {
+        given:
+        def user = new User(loginId: "chuck", password: "fistfist")
+        def profile = new Profile(user: user, fullName: "Chuck Norris", email: "chucky@norris.com")
+        profile.save(failOnError: true)
+
+        expect:
+        User.get(user.id)
+        Profile.get(profile.id)
+
+        when:
+        user.delete()
+
+        then:
+        User.get(user.id) == null
+        Profile.get(profile.id) == null
+    }
+
+    void "Ensure a user can follow other users"() {
+        given:
+        def joe = new User(loginId: "joe", password: "password").save()
+        def jane = new User(loginId: "jane", password: "password").save()
+        def jill = new User(loginId: "jill", password: "password").save()
+
+        when:
+        joe.addToFollowing(jane)
+        joe.addToFollowing(jill)
+        jane.addToFollowing(jill)
+
+        then:
+        2 == joe.following.size()
+        1 == jane.following.size()
+    }
 }

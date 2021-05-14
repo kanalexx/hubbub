@@ -2,7 +2,7 @@ package com.kanaa
 
 class Profile {
 
-    User user
+//    User user
     byte[] photo
     String fullName
     String bio
@@ -11,6 +11,8 @@ class Profile {
     String timezone
     String country
     String jabberAddress
+
+    static belongsTo = [user: User]
 
     static constraints = {
         photo nullable: true, maxSize: 2 * 1024 * 1024 // 2MB
