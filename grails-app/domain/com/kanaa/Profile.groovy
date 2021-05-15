@@ -24,4 +24,9 @@ class Profile {
         country nullable: true
         jabberAddress email: true, nullable: true
     }
+
+    @Override
+    String toString() {
+        return "Profile for ${fullName} (${id})"
+    }
 }
