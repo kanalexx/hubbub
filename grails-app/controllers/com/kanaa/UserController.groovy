@@ -7,4 +7,13 @@ class UserController {
     def index() {
         respond User.list()
     }
+
+    def search() {
+
+    }
+
+    def results(String loginId) {
+        def users = User.findAllByLoginIdLike("%${loginId}%")
+        return [users: users, term: loginId]
+    }
 }
