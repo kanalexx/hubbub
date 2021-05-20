@@ -31,9 +31,9 @@ class PostIntegrationSpec extends Specification {
     void "Ensure posts linked to a user can be retrieved"() {
         given:
         def user = new User(loginId: "joe", password: "secret")
-        user.addToPosts(new Post(content: "First"))
-        user.addToPosts(new Post(content: "Second"))
-        user.addToPosts(new Post(content: "Third"))
+        user.addToPosts(content: "First")
+        user.addToPosts(content: "Second")
+        user.addToPosts(content: "Third")
         user.save(failOnError: true)
 
         when:

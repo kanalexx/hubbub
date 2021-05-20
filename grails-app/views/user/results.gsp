@@ -5,7 +5,7 @@
   Time: 19:55
 --%>
 
-<%@ page import="com.kanaa.User" contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Search Results</title>
@@ -14,14 +14,11 @@
 
 <body>
 <h1>Results</h1>
-<p>Searched ${User.count()} records for items matching <em>${term}</em>.
+<p>Searched ${totalUsers} records for items matching <em>${term}</em>.
 Found <strong>${users.size()}</strong> hits.
 </p>
 <ul>
-    <g:each in="${users}" var="user">
-%{--        <li>${user.loginId}</li>--}%
-        <li><f:display bean="${user}"/> </li>
-    </g:each>
+    <f:table collection="${users}" properties="loginId, profile.fullName"/>
 </ul>
 <g:link action="search">Search Again</g:link>
 </body>

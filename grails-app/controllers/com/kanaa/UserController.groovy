@@ -13,7 +13,8 @@ class UserController {
     }
 
     def results(String loginId) {
-        def users = User.findAllByLoginIdLike("%${loginId}%")
-        return [users: users, term: loginId]
+//        def users = User.findAllByLoginIdLike("%${loginId}%")
+        def users = User.where { loginId =~ "%$loginId%" }.list()
+        return [users: users, term: loginId, totalUsers: User.count()]
     }
 }

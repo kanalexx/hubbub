@@ -21,4 +21,8 @@ class User {
         following joinTable: [name: "following", key: "following_id"]
     }
 
+    @Override
+    String toString() {
+        return "$loginId ($id)"
+    }
 }
