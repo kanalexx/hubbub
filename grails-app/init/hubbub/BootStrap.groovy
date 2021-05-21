@@ -21,12 +21,14 @@ class BootStrap {
         environments {
             development {
                 if (!Post.count()) createSampleData()
+                createAdminUserIfRequired()
             }
             test {
                 if (!Post.count()) createSampleData()
             }
         }
     }
+
     def destroy = {
     }
 
@@ -137,5 +139,15 @@ class BootStrap {
 
         dillon.dateCreated = Date.valueOf(now - Period.ofDays(2))
         dillon.save(failOnError: true, flush: true)
+    }
+
+    void createAdminUserIfRequired() {
+        if (!User.findByLoginId("admin")) {
+            println "Fresh DataBase. Creating ADMIN user."
+            def profile = new Profile(fullName: "Administrator", email: "admin@mail.com")
+            new User(loginId: "admin", password: "secret", profile: profile).save()
+        } else {
+            println "Existing admin user, skipping creation."
+        }
     }
 }
