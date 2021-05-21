@@ -7,4 +7,13 @@ class PostController {
     def index() {
         respond Post.list()
     }
+
+    def timeline() {
+        def user = User.where { loginId == params.id }.get()
+        if (!user) {
+            response.sendError(404)
+        } else {
+            return [user: user]
+        }
+    }
 }
