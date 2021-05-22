@@ -2,7 +2,9 @@ package com.kanaa
 
 import grails.testing.gorm.DataTest
 import grails.testing.web.controllers.ControllerUnitTest
+import org.spockframework.runtime.SpockAssertionError
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class PostControllerSpec extends Specification implements ControllerUnitTest<PostController>, DataTest {
 
@@ -63,5 +65,22 @@ class PostControllerSpec extends Specification implements ControllerUnitTest<Pos
         response.redirectedUrl == "/post/timeline/chuck"
         Post.countByUser(user) == 1
 
+    }
+
+    @Unroll
+    void "Testing id of #suppliedId redirects to #expectedUrl"() {
+        given:
+        params.id = suppliedId
+
+        when: "Controller is invoked"
+        controller.index()
+
+        then:
+        response.redirectedUrl == expectedUrl
+
+        where:
+        suppliedId  |   expectedUrl
+        "joe_cool"  |   "/post/timeline/joe_cool"
+        null        |   "/post/timeline/chuck_norris"
     }
 }
