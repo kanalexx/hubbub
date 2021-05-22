@@ -22,10 +22,10 @@
     <div id="hd">
         <asset:image id="logo" dir="images" src="headerlogo.png" alt="hubbub logo"/>
         <div class="nav" role="navigation">
-            <ul>
+            <ul class="main-menu">
                 <li><g:link controller="user" action="search">Поиск</g:link></li>
                 <li><g:link controller="user" action="advSearch">Расширенный поиск</g:link></li>
-                <li><g:link controller="post" action="timeline">Итория сообщений</g:link></li>
+                <li><g:link controller="post" action="timeline">Сообщения</g:link></li>
             </ul>
         </div>
     </div>

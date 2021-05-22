@@ -44,4 +44,24 @@ class PostControllerSpec extends Specification implements ControllerUnitTest<Pos
         then: "a 404 is sent to the browser"
         response.status == 404
     }
+
+    void "Adding a valid new post to the timeline"() {
+        given: "A user with post in db"
+        def user = new User(loginId: "chuck", password: "password").save(failOnError: true)
+
+        and: "A loginId parameter"
+        params.id = "chuck"
+
+        and: "Some content to the post"
+        params.content = "Chuck Norris can unit test entire applications with a single assert"
+
+        when: "Add post is invoked"
+        def model = controller.addPost()
+
+        then: "Our flash message and redirect confirms the success"
+        flash.message == "Successfully created post"
+        response.redirectedUrl == "/post/timeline/chuck"
+        Post.countByUser(user) == 1
+
+    }
 }
