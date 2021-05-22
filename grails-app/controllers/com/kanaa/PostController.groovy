@@ -7,7 +7,10 @@ class PostController {
     static scaffold = Post
 
     def index() {
-        respond Post.list()
+        if (!params.id) {
+            params.id = "chuck_norris"
+        }
+        redirect(action: "timeline", params: params)
     }
 
     def timeline() {
