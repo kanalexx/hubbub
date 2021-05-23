@@ -6,6 +6,8 @@ class PostController {
 
     static scaffold = Post
 
+    PostService postService
+
     def index() {
         if (!params.id) {
             params.id = "chuck_norris"
@@ -22,20 +24,13 @@ class PostController {
         }
     }
 
-    @Transactional
-    def addPost() {
-        def user = User.findByLoginId(params.id)
-        if (user) {
-            def post = new Post(params)
-            user.addToPosts(post)
-            if (user.save()) {
-                flash.message = "Successfully created post"
-            } else {
-                flash.message = "Invalid or empty post"
-            }
-        } else {
-            flash.message = "Invalid user id"
+    def addPost(String id, String content) {
+        try {
+            def post = postService.createPost(id, content)
+            flash.message = "Added new post: ${post.content}"
+        } catch(PostException pe) {
+            flash.message = pe.message
         }
-        redirect action: "timeline", id: params.id
+        redirect action: "timeline", id: id
     }
 }
