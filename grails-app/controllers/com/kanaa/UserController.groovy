@@ -1,11 +1,29 @@
 package com.kanaa
 
+import grails.gorm.transactions.Transactional
+
 class UserController {
 
     static scaffold = User
 
     def index() {
         respond User.list()
+    }
+
+    @Transactional
+    def register() {
+        if (request.method == "POST") {
+            def user = new User(params)
+            // странная операция, но без нее работать не будет
+            user.profile.user = user
+            if (user.save()) {
+                flash.message = "Successfully Created User"
+                redirect(uri: "/")
+            } else {
+                flash.message = "Error Registering User"
+                return [user: user]
+            }
+        }
     }
 
     def search() {
