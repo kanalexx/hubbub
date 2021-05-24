@@ -8,18 +8,18 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <asset:stylesheet src="hubbub.css"/>
-    <asset:stylesheet src="main.css"/>
 
-%{--    <asset:stylesheet src="application.css"/>--}%
+    <asset:stylesheet src="application.css"/>
+%{--    <asset:stylesheet src="grails.css"/>--}%
+%{--    <asset:stylesheet src="main.css"/>--}%
+    <asset:stylesheet src="hubbub.css"/>
 
     <g:layoutHead/>
 </head>
 
 <body>
 
-<div>
-    <div id="hd">
+    <header id="hd">
         <asset:image id="logo" dir="images" src="headerlogo.png" alt="hubbub logo"/>
         <div class="nav" role="navigation">
             <ul class="main-menu">
@@ -29,14 +29,13 @@
                 <li><g:link controller="user" action="register"><g:message code="action.user.register"/></g:link></li>
             </ul>
         </div>
-    </div>
-    <div id="bd">
+    </header>
+    <section id="bd">
         <g:layoutBody/>
-    </div>
-    <div id="ft">
+    </section>
+    <footer id="ft">
         <div id="footerText">Hubbub - Social Networking on Grails</div>
-    </div>
-</div>
+    </footer>
 
 <asset:javascript src="application.js"/>
 

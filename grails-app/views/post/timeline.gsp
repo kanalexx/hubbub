@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<div id="newPost">
+<section id="newPost">
     <h3>What is ${user.profile.fullName} hacking on right now?</h3>
     <g:if test="${flash.message}">
         <div class="flash">
@@ -23,22 +23,24 @@
     <p>
         <g:form action="addPost" id="${params.id}">
             <g:textArea id="postContent" name="content" rows="3" cols="50"/><br>
-            <g:submitButton name="post" value="Post"/>
+            <fieldset class="buttons">
+                <g:submitButton name="post" value="${message(code: "action.post.timeline.post")}"/>
+            </fieldset>
         </g:form>
     </p>
-</div>
+</section>
 
-<div id="allPosts">
+<section id="allPosts">
     <g:each in="${user.posts}" var="post">
-        <div class="postEntry">
+        <article class="postEntry">
             <div class="postText">
                 ${post.content}
             </div>
             <div class="postDate">
                 ${post.dateCreated}
             </div>
-        </div>
+        </article>
     </g:each>
-</div>
+</section>
 </body>
 </html>

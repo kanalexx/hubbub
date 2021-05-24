@@ -1,7 +1,5 @@
 package com.kanaa
 
-import grails.gorm.transactions.Transactional
-
 class PostController {
 
     static scaffold = Post
@@ -16,7 +14,7 @@ class PostController {
     }
 
     def timeline() {
-        def user = User.findByLoginId(params.id)
+        def user = User.findByLoginId(params.id as String)
         if (!user) {
             response.sendError(404)
         } else {
