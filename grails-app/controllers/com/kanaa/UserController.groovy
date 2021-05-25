@@ -41,7 +41,7 @@ class UserController {
                 flash.message = "Welcome aboard, ${urc.fullName ?: urc.loginId}"
                 redirect(uri: '/')
             } else {
-                return [user: urc]
+                render view: "register", model: [user: urc]
             }
         }
     }

@@ -1,12 +1,12 @@
 package com.kanaa
 
-import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class UserRegistrationCommandSpec extends Specification implements ControllerUnitTest<UserController> {
+class UserRegistrationCommandSpec extends Specification {
   // Командные объекты надо тестировать в отдельном Spec от контроллера,
-  // потому что в ControllerSpec происходит обращение к объекту как к домену, чем он не является
+  // потому что в ControllerSpec происходит обращение к объекту как к домену, чем он не является.
+  // И тестировать логику командного объекта надо отдельно от логики контроллера.
 
   @Unroll
   void "Registration command object for #loginId validate correctly"() {
@@ -32,28 +32,6 @@ class UserRegistrationCommandSpec extends Specification implements ControllerUni
     "glen"      | "password"    | "no-match"     | false            | "passwordRepeat"  | "validator.invalid"
     "peter"     | "password"    | "password"     | true             | null              | null
     "a"         | "password"    | "password"     | false            | "loginId"         | "size.toosmall"
-  }
-
-  // не работает
-  void "Invoking the new register action via a command object"() {
-    given: "A configured command object"
-    def urc = new UserRegistrationCommand(
-        loginId: "glen-a-smith",
-        fullName: "Glen Smith",
-        email: "glen@bytecode.com.au",
-        password: "password",
-        passwordRepeat: "password"
-    )
-
-    and: "which has been validated"
-    urc.validate()
-
-    when: "the register action is invoked"
-    controller.register2(urc)
-
-    then: "the user is registered and browser is redirected"
-    !urc.hasErrors()
-    response.redirectedUrl == "/"
   }
 
 }

@@ -39,7 +39,6 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         response.redirectedUrl == "/"
     }
 
-    // и тут не работает
     void "Invoking the new register action via a command object"() {
         given: "A configured command object"
         def urc = new UserRegistrationCommand(
@@ -50,17 +49,35 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
             passwordRepeat: "password2"
         )
 
-        and: "which has been validated"
-        urc.validate()
+        // не запускаем валидацию, потому что тестирование валидации происходит в тесте командного объекта
+//        and: "which has been validated"
+//        urc.validate()
+
+        when: "the register action is invoked"
+        def model = controller.register2(urc)
+
+        then: "the user is registered and browser is redirected"
+        // без валидации urc.hasError всегда false
+//        !urc.hasErrors()
+        response.redirectedUrl == "/"
+        User.count() == 1
+        Profile.count() == 1
+    }
+
+    void "Invoking action with invalid command object"() {
+        given: "A configured command object"
+        def urc = Mock(UserRegistrationCommand)
+
+        and: "Имитируем ошибку валидации"
+        urc.hasErrors() >> true
 
         when: "the register action is invoked"
         controller.register2(urc)
 
-        then: "the user is registered and browser is redirected"
-        !urc.hasErrors()
-        response.redirectedUrl == "/"
-        User.count() == 1
-        Profile.count() == 1
+        then: "редиректа не происходит, и домены не сохраняются"
+        response.redirectedUrl == null
+        User.count() == 0
+        Profile.count() == 0
     }
 
 }
