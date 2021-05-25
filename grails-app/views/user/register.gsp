@@ -22,7 +22,7 @@
 <g:if test="${flash.message}">
     <div class="falsh">${flash.message}</div>
 </g:if>
-<g:form action="register">
+<g:form action="register2">
     <fieldset class="form">
         <div class="fieldcontain required">
             <label for="loginId"><g:message code="user.loginId.label"/></label>
@@ -33,16 +33,20 @@
             <g:passwordField name="password" value="${user?.password}"/>
         </div>
         <div class="fieldcontain required">
-            <label for="profile.fullName"><g:message code="profile.fullName.label"/></label>
-            <g:textField name="profile.fullName" value="${user?.profile?.fullName}"/>
+            <label for="passwordRepeat"><g:message code="user.passwordRepeat.label"/></label>
+            <g:passwordField name="passwordRepeat" value="${user?.passwordRepeat}"/>
         </div>
         <div class="fieldcontain required">
-            <label for="profile.bio"><g:message code="profile.bio.label"/></label>
-            <g:textArea name="profile.bio" value="${user?.profile?.bio}"/>
+            <label for="fullName"><g:message code="profile.fullName.label"/></label>
+            <g:textField name="fullName" value="${user?.fullName}"/>
         </div>
         <div class="fieldcontain required">
-            <label for="profile.email"><g:message code="profile.email.label"/></label>
-            <g:textField name="profile.email" value="${user?.profile?.email}"/>
+            <label for="bio"><g:message code="profile.bio.label"/></label>
+            <g:textArea name="bio" value="${user?.bio}"/>
+        </div>
+        <div class="fieldcontain required">
+            <label for="email"><g:message code="profile.email.label"/></label>
+            <g:textField name="email" value="${user?.email}"/>
         </div>
     </fieldset>
     <fieldset class="buttons">

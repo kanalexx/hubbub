@@ -38,4 +38,29 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         Profile.count() == 1
         response.redirectedUrl == "/"
     }
+
+    // и тут не работает
+    void "Invoking the new register action via a command object"() {
+        given: "A configured command object"
+        def urc = new UserRegistrationCommand(
+            loginId: "glen-a-smith",
+            fullName: "Glen Smith",
+            email: "glen@bytecode.com.au",
+            password: "password",
+            passwordRepeat: "password2"
+        )
+
+        and: "which has been validated"
+        urc.validate()
+
+        when: "the register action is invoked"
+        controller.register2(urc)
+
+        then: "the user is registered and browser is redirected"
+        !urc.hasErrors()
+        response.redirectedUrl == "/"
+        User.count() == 1
+        Profile.count() == 1
+    }
+
 }

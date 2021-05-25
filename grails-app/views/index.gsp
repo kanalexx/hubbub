@@ -51,6 +51,11 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
+        <g:if test="${flash.message}">
+            <div class="message">
+                ${flash.message}
+            </div>
+        </g:if>
         <h1>Welcome to Grails</h1>
 
         <p>

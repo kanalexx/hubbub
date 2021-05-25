@@ -1,6 +1,7 @@
 package com.kanaa
 
 import grails.gorm.transactions.Transactional
+import grails.validation.Validateable
 
 class UserController {
 
@@ -22,6 +23,25 @@ class UserController {
             } else {
                 flash.message = "Error Registering User"
                 return [user: user]
+            }
+        }
+    }
+
+    @Transactional
+    def register2(UserRegistrationCommand urc) {
+        if (urc.hasErrors()) {
+            render view: "register", model: [user: urc]
+        } else {
+            def user = new User(urc.properties)
+            def profile = new Profile(urc.properties)
+            // связь же двунаправленная
+            profile.user = user
+            user.profile = profile
+            if (user.validate() && user.save()) {
+                flash.message = "Welcome aboard, ${urc.fullName ?: urc.loginId}"
+                redirect(uri: '/')
+            } else {
+                return [user: urc]
             }
         }
     }
@@ -52,5 +72,35 @@ class UserController {
             }
         }
         return [profiles: profiles]
+    }
+}
+
+class UserRegistrationCommand implements Validateable {
+    String loginId
+    String password
+    String passwordRepeat
+    byte[] photo
+    String fullName
+    String bio
+    String homepage
+    String email
+    String timezone
+    String country
+    String jabberAddress
+
+    static constraints = {
+        importFrom Profile
+        importFrom User
+
+        password size: 6..8,
+            blank: false,
+            validator: {pswd, urc ->
+                pswd != urc.loginId
+            }
+
+        passwordRepeat nullable: false,
+            validator: {pswd2, urc ->
+                pswd2 == urc.password
+            }
     }
 }
