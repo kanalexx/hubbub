@@ -23,10 +23,12 @@
         <asset:image id="logo" dir="images" src="headerlogo.png" alt="hubbub logo"/>
         <div class="nav" role="navigation">
             <ul class="main-menu">
+                <li><a href="/"><g:message code="default.home.label"/></a>
                 <li><g:link controller="user" action="search"><g:message code="action.user.search"/></g:link></li>
                 <li><g:link controller="user" action="advSearch"><g:message code="action.user.advSearch"/></g:link></li>
                 <li><g:link controller="post" action="timeline"><g:message code="action.post.timeline"/></g:link></li>
                 <li><g:link controller="user" action="register"><g:message code="action.user.register"/></g:link></li>
+                <li><g:link controller="image" action="form"><g:message code="image.form.title"/></g:link></li>
             </ul>
         </div>
     </header>

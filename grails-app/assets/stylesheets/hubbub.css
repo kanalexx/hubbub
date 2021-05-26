@@ -99,12 +99,22 @@ dd {
     font-size: smaller;
 }
 
+.profilePic {
+    padding: 0.5em;
+    border: #e2aa00 solid 1px;
+    background-color: #fff6e6;
+    box-shadow: 0 0 0.25em 0 #c69500;
+}
+
+.profilePic img {
+    width: 200px;
+}
+
 .friendsThumbnails img {
     margin: 4px;
 }
 
 .flash {
-    background: #ffe957;
     border: 1px dotted black;
     color: black;
     padding: 1em;

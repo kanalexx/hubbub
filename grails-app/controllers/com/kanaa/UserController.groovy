@@ -76,6 +76,13 @@ class UserController {
         }
         return [profiles: profiles]
     }
+
+    def profile() {
+        // отображение профиля пользователя с фото
+        def user = User.findByLoginId(params.id as String)
+        return [profile: user.profile]
+    }
+
 }
 
 class UserRegistrationCommand implements Validateable {
