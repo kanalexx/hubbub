@@ -41,6 +41,9 @@ class UserController {
                 flash.message = "Welcome aboard, ${urc.fullName ?: urc.loginId}"
                 redirect(uri: '/')
             } else {
+                // в этом случае плохо, что проверки разделяются на "доменные" и "не доменные".
+                // "доменные" ошибки будут отображаться если "не доменные" проверки пройдены.
+                urc.errors = user.errors
                 render view: "register", model: [user: urc]
             }
         }
@@ -90,8 +93,13 @@ class UserRegistrationCommand implements Validateable {
 
     static constraints = {
         importFrom Profile
-        importFrom User
-
+        // при этом импортируются ограничения, которые имеют смысл только для домена,
+        // поэтому при тестах возникает ошибка при обращении к домену
+        // например для loginId есть ограничение unique, которое можно проверить только в домене
+        importFrom User, exclude: ["loginId"]
+        // но тогда непосредственно при сохранении будут еще ошибки валидации именно домена, а не объекта,
+        // и их надо тоже передавать в модель
+        loginId size: 3..20
         password size: 6..8,
             blank: false,
             validator: {pswd, urc ->

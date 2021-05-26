@@ -46,25 +46,23 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
             fullName: "Glen Smith",
             email: "glen@bytecode.com.au",
             password: "password",
-            passwordRepeat: "password2"
+            passwordRepeat: "password"
         )
 
-        // не запускаем валидацию, потому что тестирование валидации происходит в тесте командного объекта
-//        and: "which has been validated"
-//        urc.validate()
+        and: "which has been validated"
+        urc.validate()
 
         when: "the register action is invoked"
-        def model = controller.register2(urc)
+        controller.register2(urc)
 
         then: "the user is registered and browser is redirected"
-        // без валидации urc.hasError всегда false
-//        !urc.hasErrors()
+        !urc.hasErrors()
         response.redirectedUrl == "/"
         User.count() == 1
         Profile.count() == 1
     }
 
-    void "Invoking action with invalid command object"() {
+    void "Invoking action with invalid command object via mock"() {
         given: "A configured command object"
         def urc = Mock(UserRegistrationCommand)
 
@@ -74,7 +72,8 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         when: "the register action is invoked"
         controller.register2(urc)
 
-        then: "редиректа не происходит, и домены не сохраняются"
+        then: "в модель передается объект с ошибками, редиректа не происходит, и домены не сохраняются"
+        model.user.hasErrors()
         response.redirectedUrl == null
         User.count() == 0
         Profile.count() == 0
