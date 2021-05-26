@@ -7,10 +7,18 @@ body {
     font-family: "Helvetica";
 }
 
+.nav .dropdown a.dropdown-toggle {
+    padding: 0.25em;
+}
+
 #hd {
     padding: 1em 1em 0 1em;
     background-image: url('../images/background.png');
     background-repeat: repeat-x;
+}
+
+#hd .nav {
+  margin-top: 4px;
 }
 
 #bd {

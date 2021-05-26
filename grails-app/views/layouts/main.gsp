@@ -10,8 +10,6 @@
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
 
     <asset:stylesheet src="application.css"/>
-%{--    <asset:stylesheet src="grails.css"/>--}%
-%{--    <asset:stylesheet src="main.css"/>--}%
     <asset:stylesheet src="hubbub.css"/>
 
     <g:layoutHead/>
@@ -21,16 +19,7 @@
 
     <header id="hd">
         <asset:image id="logo" dir="images" src="headerlogo.png" alt="hubbub logo"/>
-        <div class="nav" role="navigation">
-            <ul class="main-menu">
-                <li><a href="/"><g:message code="default.home.label"/></a>
-                <li><g:link controller="user" action="search"><g:message code="action.user.search"/></g:link></li>
-                <li><g:link controller="user" action="advSearch"><g:message code="action.user.advSearch"/></g:link></li>
-                <li><g:link controller="post" action="timeline"><g:message code="action.post.timeline"/></g:link></li>
-                <li><g:link controller="user" action="register"><g:message code="action.user.register"/></g:link></li>
-                <li><g:link controller="image" action="form"><g:message code="image.form.title"/></g:link></li>
-            </ul>
-        </div>
+        <g:applyLayout name="main-menu"/>
     </header>
     <section id="bd">
         <g:layoutBody/>
@@ -39,6 +28,7 @@
         <div id="footerText">Hubbub - Social Networking on Grails</div>
     </footer>
 
+%{--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>--}%
 <asset:javascript src="application.js"/>
 
 </body>
