@@ -14,7 +14,7 @@ class LoginController {
             session.user = user
             redirect uri: "/"
         } else {
-            flash.error = "Unknown username or password"
+            flash.error = message(code: "login.signIn.error")
             redirect action: "form"
         }
     }

@@ -60,7 +60,7 @@ class PostControllerSpec extends Specification implements ControllerUnitTest<Pos
 
         then: "redirected to timeline, flash message tell us all is well"
         flash.message ==~ /Added new post: Mock.*/
-        response.redirectedUrl == "/post/timeline/joe_cool"
+        response.redirectedUrl == "/users/joe_cool"
 
     }
 
@@ -77,7 +77,7 @@ class PostControllerSpec extends Specification implements ControllerUnitTest<Pos
 
         where:
         suppliedId  |   expectedUrl
-        "joe_cool"  |   "/post/timeline/joe_cool"
-        null        |   "/post/timeline/chuck_norris"
+        "joe_cool"  |   "/users/joe_cool"
+        null        |   "/users/chuck_norris"
     }
 }

@@ -13,7 +13,7 @@
                 </ul>
             </div>
         </li>
-        <li><g:link controller="post" action="timeline"><g:message code="action.post.timeline"/></g:link></li>
+        <li><g:link controller="post" action="index"><g:message code="action.post.timeline"/></g:link></li>
         <li><g:link controller="image" action="form"><g:message code="image.form.title"/></g:link></li>
     </ul>
 </div>
