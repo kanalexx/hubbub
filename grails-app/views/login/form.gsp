@@ -8,7 +8,7 @@
 <section class="login-form">
     <h1><g:message code="login.form.label"/></h1>
     <g:if test="${flash.error}">
-        <div class="errors">${flash.error}</div>
+        <div class="alert alert-danger">${flash.error}</div>
     </g:if>
     <g:form action="signIn">
         <fieldset class="form">
@@ -21,9 +21,8 @@
                 <label for="password"><g:message code="user.password.label"/></label>
                 <g:passwordField name="password" class="form-control"/>
             </div>
-        </fieldset>
-        <fieldset class="buttons">
-            <g:submitButton name="signIn" value="${message(code: "login.form.submit")}"/>
+
+            <g:submitButton name="signIn" value="${message(code: "login.form.submit")}" class="btn btn-primary"/>
         </fieldset>
     </g:form>
 </section>
