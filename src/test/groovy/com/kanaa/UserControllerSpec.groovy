@@ -66,13 +66,13 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         given: "A configured command object"
         def urc = Mock(UserRegistrationCommand)
 
-        and: "Имитируем ошибку валидации"
+        and: "РРјРёС‚РёСЂСѓРµРј РѕС€РёР±РєСѓ РІР°Р»РёРґР°С†РёРё"
         urc.hasErrors() >> true
 
         when: "the register action is invoked"
         controller.register2(urc)
 
-        then: "в модель передается объект с ошибками, редиректа не происходит, и домены не сохраняются"
+        then: "РІ РјРѕРґРµР»СЊ РїРµСЂРµРґР°РµС‚СЃСЏ РѕР±СЉРµРєС‚ СЃ РѕС€РёР±РєР°РјРё, СЂРµРґРёСЂРµРєС‚Р° РЅРµ РїСЂРѕРёСЃС…РѕРґРёС‚, Рё РґРѕРјРµРЅС‹ РЅРµ СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ"
         model.user.hasErrors()
         response.redirectedUrl == null
         User.count() == 0

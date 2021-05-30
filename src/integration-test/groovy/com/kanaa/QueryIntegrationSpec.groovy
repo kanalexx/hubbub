@@ -41,7 +41,7 @@ class QueryIntegrationSpec extends Specification {
         users*.loginId == ["phil"]
     }
 
-    // Тесты с датами работать не будут
+    // РўРµСЃС‚С‹ СЃ РґР°С‚Р°РјРё СЂР°Р±РѕС‚Р°С‚СЊ РЅРµ Р±СѓРґСѓС‚
 //    void "Query against a range value"() {
 //        given: "The current date & time"
 //        def now = new Date()

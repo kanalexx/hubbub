@@ -28,16 +28,16 @@ class UserIntegrationSpec extends Specification {
     }
 
     void "test save and update"() {
-        given: "создаем пользователя и сохраняем"
+        given: "СЃРѕР·РґР°РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё СЃРѕС…СЂР°РЅСЏРµРј"
         def existingUser = new User(loginId: "joe", password: "secret")
         existingUser.save(failOnError: true)
 
-        when: "находим созданного пользователя и у найденного пользоваеля меняем пароль и сохраняем"
+        when: "РЅР°С…РѕРґРёРј СЃРѕР·РґР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё Сѓ РЅР°Р№РґРµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°РµР»СЏ РјРµРЅСЏРµРј РїР°СЂРѕР»СЊ Рё СЃРѕС…СЂР°РЅСЏРµРј"
         def foundUser = User.get(existingUser.id)
         foundUser.password = "sesame"
         foundUser.save(failOnError: true)
 
-        then: "у отредактированного пользователя измененный пароль"
+        then: "Сѓ РѕС‚СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР·РјРµРЅРµРЅРЅС‹Р№ РїР°СЂРѕР»СЊ"
         "sesame" == User.get(existingUser.id).password
     }
 
@@ -69,16 +69,16 @@ class UserIntegrationSpec extends Specification {
     }
 
     void "Recovering from a failed save by fixing invalid properties"() {
-        given: "Пользователь с недопустимыми свойствами"
+        given: "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ РЅРµРґРѕРїСѓСЃС‚РёРјС‹РјРё СЃРІРѕР№СЃС‚РІР°РјРё"
         def chuck = new User(loginId: "chuck", password: "tiny")
         assert chuck.save() == null
         assert chuck.hasErrors()
 
-        when: "Исправляем недопустимые свойства"
+        when: "РСЃРїСЂР°РІР»СЏРµРј РЅРµРґРѕРїСѓСЃС‚РёРјС‹Рµ СЃРІРѕР№СЃС‚РІР°"
         chuck.password = "fistfist"
         chuck.validate()
 
-        then: "Пользователь сохраняется без ошибок"
+        then: "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ Р±РµР· РѕС€РёР±РѕРє"
         !chuck.hasErrors()
         chuck.save()
     }

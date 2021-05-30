@@ -16,13 +16,13 @@ class LoginControllerSpec extends Specification implements ControllerUnitTest<Lo
 
     @Unroll
     void "Authorisation with #loginId and #password"() {
-        given: "åñòü ïîëüçîâàòåëü ñ çàäàííûìè ëîãèíîì è ïàðîëåì"
+        given: "ÐµÑÑ‚ÑŒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ñ‹Ð¼Ð¸ Ð»Ð¾Ð³Ð¸Ð½Ð¾Ð¼ Ð¸ Ð¿Ð°Ñ€Ð¾Ð»ÐµÐ¼"
         def user = new User(loginId: "validLogin", password: "validPassword").save()
 
-        when: "âûçûâàåòñÿ äåéñòâèå àâòîðèçàöèè"
+        when: "Ð²Ñ‹Ð·Ñ‹Ð²Ð°ÐµÑ‚ÑÑ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ Ð°Ð²Ñ‚Ð¾Ñ€Ð¸Ð·Ð°Ñ†Ð¸Ð¸"
         controller.signIn(loginId, password)
 
-        then: "â ñëó÷àå óñïåõà: â ñåññèè áóäåò ïîëüçîâàòåëü è ïðîèçîéäåò ïåðåíàïðàâëåíèå"
+        then: "Ð² ÑÐ»ÑƒÑ‡Ð°Ðµ ÑƒÑÐ¿ÐµÑ…Ð°: Ð² ÑÐµÑÑÐ¸Ð¸ Ð±ÑƒÐ´ÐµÑ‚ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð¸ Ð¿Ñ€Ð¾Ð¸Ð·Ð¾Ð¹Ð´ÐµÑ‚ Ð¿ÐµÑ€ÐµÐ½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ"
         if (success) {
             session.user == user
             response.redirectedUrl == "/"

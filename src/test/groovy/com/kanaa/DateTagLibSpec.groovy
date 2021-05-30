@@ -28,7 +28,7 @@ class DateTagLibSpec extends Specification implements TagLibUnitTest<DateTagLib>
 
         where:
         testName                        | testDate                  | expectedNiceDate
-        "Current time"                  | NOW                       | "right now"
+        "Current time"                  | NOW                       | "только что"
         "Now - 1 day"                   | NOW_1DAY                  | "1 day ago"
         "Now - 2 days"                  | NOW_2DAYS                 | "2 days ago"
         "Now - 1 day 1 hour 1 minute"   | NOW_1DAY_1HOUR_1MINUTE    | "1 day 1 hour 1 minute ago"

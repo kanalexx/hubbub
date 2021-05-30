@@ -32,15 +32,15 @@ class LameSecurityInterceptorSpec extends Specification implements InterceptorUn
     }
 
     void "Exercising security filter for unauthenticated user"() {
-        given: "создается mock контроллера"
+        given: "СЃРѕР·РґР°РµС‚СЃСЏ mock РєРѕРЅС‚СЂРѕР»Р»РµСЂР°"
         def controller = (PostController)mockController(PostController)
 
-        when: "вызывается действие контроллера в контексте интерцептора"
+        when: "РІС‹Р·С‹РІР°РµС‚СЃСЏ РґРµР№СЃС‚РІРёРµ РєРѕРЅС‚СЂРѕР»Р»РµСЂР° РІ РєРѕРЅС‚РµРєСЃС‚Рµ РёРЅС‚РµСЂС†РµРїС‚РѕСЂР°"
         withInterceptors([controller: "post", action: "addPost"]) {
             controller.addPost("glen", "A post")
         }
 
-        then: "происходит переадресация на форму логина"
+        then: "РїСЂРѕРёСЃС…РѕРґРёС‚ РїРµСЂРµР°РґСЂРµСЃР°С†РёСЏ РЅР° С„РѕСЂРјСѓ Р»РѕРіРёРЅР°"
         response.redirectedUrl == "/login/form"
     }
 }
