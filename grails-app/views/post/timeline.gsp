@@ -3,6 +3,9 @@
 <head>
     <title><g:message code="post.timeline.title" args="${[user.profile.fullName]}"/></title>
     <meta name="layout" content="main">
+    <g:if test="${user?.profile?.skin}">
+        <asset:stylesheet src="${user?.profile?.skin}.css"/>
+    </g:if>
 </head>
 
 <body>

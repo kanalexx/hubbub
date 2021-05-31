@@ -1,0 +1,22 @@
+
+
+body {
+
+    background: #dddddd;
+    padding-top: 4px;
+    font-family: "Helvetica";
+}
+
+#hd {
+    background-image: url('../images/background.png');
+    background-repeat: repeat-x;
+}
+
+#bd {
+    border: 1px solid lightgray;
+    background: black;
+    color: white;
+    padding: 1em;
+}
+
+

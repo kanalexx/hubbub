@@ -41,7 +41,7 @@ class PostController {
             redirect controller: "login", action: "form"
             return
         }
-        render action: "timeline", model: [user: session.user.refresh()]
+        render view: "timeline", model: [user: session.user.refresh()]
     }
 
 }

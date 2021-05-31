@@ -2,6 +2,8 @@ package com.kanaa
 
 class Profile {
 
+    static final def SKINS = ['blues', 'nighttime']
+
     User user
     byte[] photo
     String fullName
@@ -11,6 +13,7 @@ class Profile {
     String timezone
     String country
     String jabberAddress
+    String skin
 
     static belongsTo = [User]
 
@@ -23,6 +26,7 @@ class Profile {
         timezone nullable: true
         country nullable: true
         jabberAddress email: true, nullable: true
+        skin nullable: true, blank: true, inList: SKINS
     }
 
     @Override

@@ -8,6 +8,7 @@
     <div class="nav" role="navigation">
         <ul class="main-menu navbar-nav navbar-expand-sm">
             <li class="nav-item"><a href="/"><g:message code="default.home.label"/></a>
+            <li class="nav-item"><g:link controller="login" action="form"><g:message code="login.form.label"/></g:link>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" type="button" id="menuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -28,7 +29,7 @@
                     <g:message code="menu.posts"/>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="menuLink">
-                    <li class="dropdown-item"><g:link controller="post" action="index"><g:message
+                    <li class="dropdown-item"><g:link controller="post" action="personal"><g:message
                             code="action.post.timeline"/></g:link></li>
                     <li class="dropdown-item"><g:link controller="post" action="global" params="[max: 5]"><g:message
                             code="action.post.global"/></g:link></li>
