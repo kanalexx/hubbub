@@ -22,8 +22,18 @@
                             code="action.user.register"/></g:link></li>
                 </ul>
             </li>
-            <li class="nav-item"><g:link controller="post" action="index"><g:message
-                    code="action.post.timeline"/></g:link></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" type="button" id="menuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <g:message code="menu.posts"/>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="menuLink">
+                    <li class="dropdown-item"><g:link controller="post" action="index"><g:message
+                            code="action.post.timeline"/></g:link></li>
+                    <li class="dropdown-item"><g:link controller="post" action="global" params="[max: 5]"><g:message
+                            code="action.post.global"/></g:link></li>
+                </ul>
+            </li>
             <li class="nav-item"><g:link controller="image" action="form"><g:message
                     code="image.form.title"/></g:link></li>
         </ul>

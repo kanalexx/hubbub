@@ -26,6 +26,8 @@
     </section>
     <footer id="ft">
         <div id="footerText">Hubbub - Social Networking on Grails</div>
+        Version <g:meta name="info.app.version"/>
+        on Grails <g:meta name="info.app.grailsVersion"/>
     </footer>
 
 %{--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>--}%

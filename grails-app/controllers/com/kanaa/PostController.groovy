@@ -22,6 +22,10 @@ class PostController {
         }
     }
 
+    def global() {
+        return [posts: Post.list(params), postCount: Post.count()]
+    }
+
     def addPost(String id, String content) {
         try {
             def post = postService.createPost(id, content)
