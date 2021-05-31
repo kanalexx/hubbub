@@ -28,17 +28,7 @@
 </g:if>
 
 <section id="allPosts">
-    <g:each in="${posts}" var="post">
-        <article class="postEntry">
-            <div class="postText">
-                ${post.content}
-            </div>
-
-            <div class="postDate">
-                <hub:dateFromNow date="${post.dateCreated}"/>
-            </div>
-        </article>
-    </g:each>
+    <g:render template="postEntry" collection="${posts}" var="post"/>
     <g:paginate action="global" total="${postCount}" max="5"/>
 </section>
 </body>
