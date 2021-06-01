@@ -44,4 +44,17 @@ class PostController {
         render view: "timeline", model: [user: session.user.refresh()]
     }
 
+    def addPostAjax(String content) {
+        try {
+            def newPost = postService.createPost(session.user.loginId as String, content)
+            def recentPosts = Post.findAllByUser(session.user as User,
+                    [sort: "dateCreated", order: "desc", max: 5])
+            render template: "postEntry", collection: recentPosts, var: "post"
+        } catch(PostException pe) {
+            render {
+                div(class: "errors", pe.message)
+            }
+        }
+    }
+
 }

@@ -20,7 +20,15 @@
         <g:form action="addPost" id="${params.id}">
             <g:textArea id="postContent" name="content" rows="3" cols="50"/><br>
             <fieldset class="buttons">
-                <g:submitButton name="post" value="${message(code: "action.post.timeline.post")}"/>
+%{--                <g:submitButton name="post" value="${message(code: "action.post.timeline.post")}"/>--}%
+                <g:submitToRemote value="${message(code: "action.post.timeline.post")}"
+                                  url="[controller: 'post', action: 'addPostAjax']"
+                                  update="allPosts"
+                                  onSuccess="clearPost()"
+                                  onLoading="showSpinner(true)"
+                                  onComplete="showSpinner(false)"
+                />
+                <asset:image id="spinner" style="display: none" src="spinner.gif"/>
             </fieldset>
         </g:form>
     </p>
@@ -38,5 +46,17 @@
         </article>
     </g:each>
 </section>
+
+<g:javascript>
+    function clearPost() {
+        $("#postContent").val("")
+    }
+    function showSpinner(visible) {
+        if (visible)
+            $("#spinner").show()
+        else
+            $("#spinner").hide()
+    }
+</g:javascript>
 </body>
 </html>
