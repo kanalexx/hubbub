@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title><g:message code="post.timeline.title" args="${[user.profile.fullName]}"/></title>
+    <link rel="stylesheet" type="text/css" href="../../assets/stylesheets/hubbub.css"/><title><g:message code="post.timeline.title" args="${[user.profile.fullName]}"/></title>
     <meta name="layout" content="main">
     <g:if test="${user?.profile?.skin}">
         <asset:stylesheet src="${user?.profile?.skin}.css"/>
@@ -28,9 +28,18 @@
                                   onLoading="showSpinner(true)"
                                   onComplete="showSpinner(false)"
                 />
+                <a href="#" id="showHideUrl" onclick="toggleTinyUrl(); return false;">
+                    Show TinyURL
+                </a>
                 <asset:image id="spinner" style="display: none" src="spinner.gif"/>
             </fieldset>
         </g:form>
+        <div id="tinyUrl" style="display: none;">
+            <g:formRemote name="tinyUrlForm" url="[action: 'tinyUrl']" onSuccess="addTinyUrl(data);">
+                TinyUrl: <g:textField name="fullUrl" class="m-1"/>
+                <g:submitButton name="submit" value="Make Tiny" class="btn m-1"/>
+            </g:formRemote>
+        </div>
     </p>
 </section>
 
@@ -56,6 +65,24 @@
             $("#spinner").show()
         else
             $("#spinner").hide()
+    }
+    function toggleTinyUrl() {
+        let toggleText = $("#showHideUrl")
+        let tinyUrl = $("#tinyUrl")
+        if (tinyUrl.is(":visible")) {
+            tinyUrl.slideUp(300)
+            toggleText.text("Show TinyURL")
+        } else {
+            tinyUrl.slideDown(300)
+            toggleText.text("Hide TinyURL")
+        }
+    }
+    function addTinyUrl(data) {
+        let tinyUrl = data.urls.small
+        let postBox = $("#postContent")
+        postBox.val(postBox.val() + tinyUrl)
+        toggleTinyUrl()
+        $("#tinyUrl input[name='fullUrl']").val("")
     }
 </g:javascript>
 </body>

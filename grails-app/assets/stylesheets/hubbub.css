@@ -144,3 +144,6 @@ dd {
     font-weight: bold;
 }
 
+#tinyUrl {
+    margin-bottom: 0.5em;
+}
