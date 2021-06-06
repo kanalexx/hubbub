@@ -7,6 +7,8 @@ class UserController {
 
     static scaffold = User
 
+    HubbubMailService hubbubMailService
+
     def index() {
         respond User.list()
     }
@@ -39,7 +41,7 @@ class UserController {
             user.profile = profile
             if (user.validate() && user.save()) {
                 flash.message = "Welcome aboard, ${urc.fullName ?: urc.loginId}"
-                redirect(uri: '/')
+                redirect action: "welcomeEmail", params: [email: profile.email]
             } else {
                 // в этом случае плохо, что проверки разделяются на "доменные" и "не доменные".
                 // "доменные" ошибки будут отображаться если "не доменные" проверки пройдены.
@@ -81,6 +83,14 @@ class UserController {
         // отображение профиля пользователя с фото
         def user = User.findByLoginId(params.id as String)
         return [profile: user.profile]
+    }
+
+    def welcomeEmail(String email) {
+        if (email) {
+            hubbubMailService.welcomeEmail(email)
+            flash.message = "Welcome aboard"
+        }
+        redirect uri: "/"
     }
 
 }

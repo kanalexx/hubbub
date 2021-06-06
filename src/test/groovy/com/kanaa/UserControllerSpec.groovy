@@ -57,7 +57,7 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
 
         then: "the user is registered and browser is redirected"
         !urc.hasErrors()
-        response.redirectedUrl == "/"
+        response.redirectedUrl =~ /\/user\/welcomeEmail\?email=/
         User.count() == 1
         Profile.count() == 1
     }
@@ -77,6 +77,19 @@ class UserControllerSpec extends Specification implements ControllerUnitTest<Use
         response.redirectedUrl == null
         User.count() == 0
         Profile.count() == 0
+    }
+
+    def "Отправка приветственного письма"() {
+        given:
+        def hubbubMailService = Mock(HubbubMailService)
+        controller.hubbubMailService = hubbubMailService
+
+        when: "отправляется приветственное письмо"
+        controller.welcomeEmail("user@mail.com")
+
+        then: "должен один раз вызваться метод сервиса, а затем перенаправиться на главную страницу"
+        1 * hubbubMailService.welcomeEmail("user@mail.com")
+        response.redirectedUrl == "/"
     }
 
 }
