@@ -15,6 +15,10 @@ grails:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
+    plugin:
+        databasemigration:
+            updateOnStart: true
+            updateOnStartFileName: changelog.groovy
 info:
     app:
         name: '@info.app.name@'
@@ -129,7 +133,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate: none
             url: jdbc:h2:./data/devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
         grails:
             plugin:
@@ -142,7 +146,7 @@ environments:
                 port: 3025 # берется из com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
     test:
         dataSource:
-            dbCreate: update
+            dbCreate: none
             url: jdbc:h2:./data/testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
         grails:
             mail:
